@@ -1,0 +1,68 @@
+INCLUDE PATCALLS.INC
+BUFFER EQU 1000H
+
+ORG 0100H
+
+MOV AX,DS
+MOV ES,AX
+MOV DI,BUFFER
+
+MOV CX,4
+MOV BL,03h
+MOV AH,00h
+INT 28H
+
+MOV DX, 0
+MOV CX,7
+l7:
+	mov di, 1004h
+	push cx
+	MOV CX,4
+	MOV BL,03h
+	MOV AH,00h
+	INT 28H
+	
+	mov di, 1000h
+	mov cx, 4
+l4:
+	mov al, [di]
+	mov bl, [di + 4]
+	cmp al, bl
+	jz EQUAL
+	inc di
+	loop l4
+	
+	jmp WRITEC
+EQUAL:
+	push cx
+	mov bx, 2
+lpx:  IMUL bx, 2
+	loop lpx
+      pop cx
+	or dl ,bl
+	mov [di + 8], al
+	inc di
+	loop l4
+	
+WRITEC:
+	MOV DI, 1008h
+	MOV BL, 4
+	MOV CX, 8
+	MOV AH,02h
+	INT 28h
+
+	cmp dl, 0Fh
+	jz END1
+	
+	pop cx
+	loop l7
+
+
+END1:
+
+
+MOV BX,0000H
+MOV AH,04H
+INT 28H
+;DOGRU db "DOGRU"
+;YANLIS db "YANLIS"

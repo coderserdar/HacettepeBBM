@@ -1,0 +1,6 @@
+timeout=2
+
+title BBM OS
+	root (fd0)
+	kernel /kernel32
+	module /app

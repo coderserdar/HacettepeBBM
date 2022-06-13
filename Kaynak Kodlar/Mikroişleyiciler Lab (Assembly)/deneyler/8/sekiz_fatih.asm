@@ -1,0 +1,68 @@
+INCLUDE PATCALLS.INC
+I27VCT EQU 009CH
+I22VCT EQU 0088H
+I23VCT EQU 008CH
+I24VCT EQU 0090H
+I20VCT EQU 0080H
+I21VCT EQU 0084H
+
+        
+        ORG 0300H
+        CLI
+        MOV DX,DS
+        
+        MOV AX,0000H
+        MOV DS,AX
+        MOV WORD PTR DS:I27VCT,0400H
+        MOV WORD PTR DS:I27VCT+2,0080H
+        MOV WORD PTR DS:I22VCT,0400H
+        MOV WORD PTR DS:I22VCT+2,0080H
+        MOV WORD PTR DS:I23VCT,0400H
+        MOV WORD PTR DS:I23VCT+2,0080H
+        MOV WORD PTR DS:I24VCT,0400H
+        MOV WORD PTR DS:I24VCT+2,0080H
+        MOV WORD PTR DS:I20VCT,0500H
+        MOV WORD PTR DS:I20VCT+2,0080H
+        MOV WORD PTR DS:I21VCT,0600H
+        MOV WORD PTR DS:I21VCT+2,0080H
+        
+        MOV DS,DX
+        STI
+        MOV AH,02H
+        MOV BL,03H
+        MOV CX,8
+        MOV DI,OFFSET STR1
+        INT 28H
+BEKLE : JMP BEKLE	
+           
+        ORG 0500H
+        MOV AH,02H
+        MOV BL,03H
+        MOV CX,8
+        MOV DI,OFFSET STR2
+        INT 28H
+        MOV AL,20H
+        OUT 40H,AL
+        IRET
+        ORG 0600H
+        MOV AH,02H
+        MOV BL,03H
+        MOV CX,8
+        MOV DI,OFFSET STR3
+        INT 28H
+        MOV AL,21H
+        OUT 40H,AL
+        IRET
+        ORG 0400H
+        MOV AH,02H
+        MOV BL,03H
+        MOV CX,8
+        MOV DI,OFFSET STR1
+        INT 28H
+        MOV AL,22H
+        OUT 40H,AL
+        IRET
+        
+STR1 DB "NO   INT"
+STR2 DB "IR0  INT"
+STR3 DB "IR1  INT" 
