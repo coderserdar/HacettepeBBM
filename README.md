@@ -17,6 +17,6 @@ Reponun yapısı aşağıdaki gibidir.
  - [**Kitaplar-Yardımcı Kaynaklar** (*Programlama Dilleri, İşletim Sistemleri, Veri Tabanı, Yazılım Geliştirme Yaşam Döngüsü gibi konularda kullandığımız kitaplar ve yardımcı dokümanlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Kitaplar%20-%20Yardımcı%20Kaynaklar/)
  - [**Ödevler** (*Çeşitli derslerle ilgili olarak verilen ödevlere ait dokümanlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Ödevler/)
  - [**Sınavlar** (*Çeşitli derslerle ilgili olarak yapılan bazı sınavlar ve çözümleri*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Sınavlar/)
- - [**Slaytlar** (*Çeşitli derslerle ilgili olarak verilen slaytlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Ödevler/)
+ - [**Slaytlar** (*Çeşitli derslerle ilgili olarak verilen slaytlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Slaytlar/)
 
 Benim gibi bu dönemde okuyan arkadaşlar eğer ellerindeki dokümanları, kaynak kodları vb. paylaşmak isterse benimle [E-Mail](mailto:serdargul@outlook.com) üzerinden iletişime geçerlerse sevinirim.
