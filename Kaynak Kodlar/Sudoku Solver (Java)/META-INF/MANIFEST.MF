@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: sudoku20421689.SudokuMaster
+
+Class-Path: lib/x.jar lib/y.jar
+
