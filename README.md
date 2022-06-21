@@ -10,6 +10,8 @@ Bu repo içerisinde
  - **Ödevler**,
  - **Sınavlar ve Çözümleri** kategorilerinde pek çok kaynağa ulaşabilirsiniz.
 Özellikle *C*, *C++*, *İşletim Sistemleri* gibi konularda **Türkçe** faydalı dokümanlar mevcut.
+
+Sonrasında sadece kendi dönemime ait değil, **başka yıllara ait** dokümanları da *eklemeye çalıştım*. Daha kapsamlı olması açısından
  
 Reponun yapısı aşağıdaki gibidir.
  - [**Ders Notları** (*Veri Yapıları ve Algoritmalar, Bilgisayar Yapısıi İşletme vb. konularda faydalı ders notları*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Ders%20Notları/)
