@@ -18,5 +18,11 @@ Reponun yapısı aşağıdaki gibidir.
  - [**Ödevler** (*Çeşitli derslerle ilgili olarak verilen ödevlere ait dokümanlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Ödevler/)
  - [**Sınavlar** (*Çeşitli derslerle ilgili olarak yapılan bazı sınavlar ve çözümleri*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Sınavlar/)
  - [**Slaytlar** (*Çeşitli derslerle ilgili olarak verilen slaytlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Slaytlar/)
+ - [**Diğer Yıllar** (*Diğer yıllara ait dokümanlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/)
+   - [**Ders Notları**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Ders%20Notları/)
+   - [**Kitaplar**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Kitaplar/)
+   - [**Ödevler**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Ödevler/)
+   - [**Sınavlar**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Sınavlar/)
+   - [**Slaytlar**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Slaytlar/)
 
 Benim gibi bu dönemde okuyan arkadaşlar eğer ellerindeki dokümanları, kaynak kodları vb. paylaşmak isterse benimle [E-Mail](mailto:serdargul@outlook.com) üzerinden iletişime geçerlerse sevinirim.
