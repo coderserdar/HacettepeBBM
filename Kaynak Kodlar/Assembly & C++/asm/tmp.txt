@@ -1,0 +1,161 @@
+grow PROC
+
+	push	ebp
+	mov		ebp, esp
+	push	esi
+	push	edi
+	push	ebx
+	
+	mov		eax, [ebp + 20]				; height of image
+	mov		image_height, eax
+	mov		eax, [ebp + 16]				; width of image
+	mov		image_width, eax
+	
+	mov		esi, [ebp + 8]				; address of image data
+	mov		edi, [ebp + 12]				; address of new image data
+	
+	;mov		eax, 3
+	;mov		ebx, [ebp + 20]				; height of image
+	;mul		image_height
+	
+	;mov		ebx, [ebp + 16]				; ebx = width of image
+	;mul		ebx							; eax = width * height * 3
+	
+	;mov		ecx, eax
+	
+	;shl		eax, 2						; eax = width * height * 2 * 2 * 3
+	;add		edi, eax					; add new image offset
+	
+	mov		ecx, image_height
+	
+	grow_putpixel_rows:
+		
+		mov		current_row, ecx
+		mov		ecx, image_width
+		
+		grow_putpixel_cols:
+			
+			mov		eax, image_width
+			mov		ebx, current_row
+			dec		ebx
+			mul		ebx
+			add		eax, ecx
+			mov		ebx, 3
+			mul		ebx
+			
+			mov		dl, [esi + ecx - 1]
+			
+			mov		[edi - 1], dl
+			mov		[edi - 4], dl
+			
+			sub		edi, ebx
+			sub		edi, ebx
+			sub		edi, ebx				; to the next row
+			
+			mov		[edi - 1], dl
+			mov		[edi - 4], dl
+			
+			add		edi, ebx
+			add		edi, ebx
+			add		edi, ebx
+			
+			sub		edi, 6
+			;cmp		eax, 100
+			;jbe		endl
+		
+		loop	grow_putpixel_cols
+		
+		mov		ecx, current_row
+		
+	loop	grow_putpixel_rows
+	
+	endl:
+	
+	pop		ebx
+	pop		edi
+	pop		esi
+	pop     ebp
+	ret
+	
+grow ENDP
+
+
+
+mov		dl, [esi + ecx - 1]
+mov		eax, esi
+jmp		endl
+
+mov		[edi + eax - 1], dl
+mov		[edi + eax - 4], dl
+
+sub		eax, [ebp + 16]
+sub		eax, [ebp + 16]
+sub		eax, [ebp + 16]		; to the upper row
+
+mov		[edi + eax - 1], dl
+mov		[edi + eax - 4], dl
+
+mov		BYTE PTR [edi], 255 
+mov		BYTE PTR [edi + 1], 255 
+mov		BYTE PTR [edi + 2], dl 
+mov		BYTE PTR [edi + 3], 255 
+mov		BYTE PTR [edi + 4], 255
+
+
+grow_putpixel:
+	
+		mov		dl, [esi + ecx - 1]
+		
+		mov		[edi + eax - 1], dl
+		mov		[edi + eax - 4], dl
+		
+		mov		dl, [esi + ecx - 2]
+		
+		mov		[edi + eax - 2], dl
+		mov		[edi + eax - 5], dl
+		
+		mov		dl, [esi + ecx - 3]
+		
+		mov		[edi + eax - 3], dl
+		mov		[edi + eax - 6], dl
+		
+		sub		eax, [ebp + 16]
+		sub		eax, [ebp + 16]
+		sub		eax, [ebp + 16]		; to the upper row
+		
+		mov		dl, [esi + ecx - 1]
+		
+		mov		[edi + eax - 1], dl
+		mov		[edi + eax - 4], dl
+		
+		mov		dl, [esi + ecx - 2]
+		
+		mov		[edi + eax - 2], dl
+		mov		[edi + eax - 5], dl
+		
+		mov		dl, [esi + ecx - 3]
+		
+		mov		[edi + eax - 3], dl
+		mov		[edi + eax - 6], dl
+				
+		add		eax, [ebp + 16]
+		add		eax, [ebp + 16]
+		add		eax, [ebp + 16]		; to the lower row
+		
+		dec		ebx
+		jnz		same_row
+		
+		mov		ebx, [ebp + 16]
+		
+		sub		eax, [ebp + 16]
+		sub		eax, [ebp + 16]
+		sub		eax, [ebp + 16]		; to the upper row
+		
+		same_row:
+		
+		sub		eax, 6
+		sub		ecx, 3
+		
+		;jmp endl
+		
+	jnz		grow_putpixel
