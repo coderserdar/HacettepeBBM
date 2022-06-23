@@ -1,0 +1,133 @@
+#!/bin/bash
+max=0 min=0 total=0 average=0 count=0
+AWKADD=' {printf "%.4f\n", $1+$2 } '
+AWKDIV=' {printf "%.4f\n", $1/$2 } '
+if [ $# -eq 0 ]
+then
+	echo "You did not enter an argument.Please try again later."
+elif [ $# -eq 1 ]
+then
+	echo "Report Date: `sar -c -f $1 | grep "/" | awk {' print $4 '}`"
+	echo -e " \t \t \t Minimum \t \t Maximum \t \t Average "
+	for i in `sar -c -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $3 '}`
+	do
+		total=`echo $i $total | awk "$AWKADD"` 
+		let count+=1
+	done
+	min=`sar -c -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $3 '} | sort -n | head -1`
+	max=`sar -c -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $3 '} | sort -n | tail -1`
+	average=`echo $total $count | awk "$AWKDIV"`
+	echo -e "Process Per second : \t $min \t \t \t $max \t \t \t $average"
+	
+	echo "Memory"
+	array[3]="Kbmemfree"
+	array[4]="Kbmemused"
+	array[5]="%memused"
+	array[6]="Kbbuffers"
+	array[7]="Kbcached"
+	array[8]="Kbswpfree"
+	array[9]="Kbswpused"
+	array[10]="%swpused"
+	array[11]="Kbswpcad"
+	for a in 3 4 5 6 7 8 9 10 11
+	do	
+		max=0 min=0 total=0 average=0 count=0
+		for i in `sar -r -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {'print $'$a''}`
+		do
+			total=`echo $i $total | awk "$AWKADD"` 
+			let count+=1
+		done
+		min=`sar -r -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | head -1`
+		max=`sar -r -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | tail -1`
+		average=`echo $total $count | awk "$AWKDIV"`
+		echo -e " \t ${array[a]} \t $min \t \t \t  $max \t \t \t  $average"
+	done
+	echo "CPU"
+	array2[4]="%user"
+	array2[5]="%nice"
+	array2[6]="%system"
+	array2[7]="%iowait"
+	array2[8]="%idle"
+	for a in 4 5 6 7 8
+	do	
+		max=0 min=0 total=0 average=0 count=0
+		for i in `sar -u -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {'print $'$a''}`
+		do
+			total=`echo $i $total | awk "$AWKADD"` 
+			let count+=1
+		done
+		min=`sar -u -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | head -1`
+		max=`sar -u -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | tail -1`
+		average=`echo $total $count | awk "$AWKDIV"`
+		echo -e " \t ${array2[a]} \t \t $min \t \t \t $max \t \t \t $average"
+	done
+
+elif [ $# -eq 2 ]
+then
+	echo "<html>"
+	echo "<head>"
+	echo "<title>20421689 Serdar GUL</title>"
+	echo "</head>"
+	echo "<body>"
+	echo "<br>Report Date: `sar -c -f $1 | grep "/" | awk {' print $4 '}`</br>"
+	echo -e " <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Minimum &nbsp; &nbsp; &nbsp; &nbsp;  Maximum &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Average </br>"
+	for i in `sar -c -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $3 '}`
+	do
+		total=`echo $i $total | awk "$AWKADD"` 
+		let count+=1
+	done
+	min=`sar -c -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $3 '} | sort -n | head -1`
+	max=`sar -c -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $3 '} | sort -n | tail -1`
+	average=`echo $total $count | awk "$AWKDIV"`
+	echo -e "<br> Process Per second : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $min &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  $average </br>"	
+
+	echo "<br>Memory</br>"
+	array[3]="Kbmemfree"
+	array[4]="Kbmemused"
+	array[5]="%memused"
+	array[6]="Kbbuffers"
+	array[7]="Kbcached"
+	array[8]="Kbswpfree"
+	array[9]="Kbswpused"
+	array[10]="%swpused"
+	array[11]="Kbswpcad"
+	for a in 3 4 5 6 7 8 9 10 11
+	do	
+		max=0 min=0 total=0 average=0 count=0
+		for i in `sar -r -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {'print $'$a''}`
+		do
+			total=`echo $i $total | awk "$AWKADD"` 
+			let count+=1
+		done
+		min=`sar -r -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | head -1`
+		max=`sar -r -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | tail -1`
+		average=`echo $total $count | awk "$AWKDIV"`
+		echo -e "<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${array[a]} </br>"
+		echo "<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $min &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $average</br>"
+	done
+	echo "<br>CPU</br>"
+	array2[4]="%user"
+	array2[5]="%nice"
+	array2[6]="%system"
+	array2[7]="%iowait"
+	array2[8]="%idle"
+	for a in 4 5 6 7 8
+	do	
+		max=0 min=0 total=0 average=0 count=0
+		for i in `sar -u -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {'print $'$a''}`
+		do
+			total=`echo $i $total | awk "$AWKADD"` 
+			let count+=1
+		done
+		min=`sar -u -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | head -1`
+		max=`sar -u -f $1 | sed  -e '1,3d' -e '/ ^*$/d' -e '/Average/d' | awk {' print $'$a' '} | sort -n | tail -1`
+		average=`echo $total $count | awk "$AWKDIV"`
+		echo -e "<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${array2[a]} </br>"
+		echo " <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $min &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $max &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $average</br>"
+	done
+	echo "</body>"
+	echo "</html>"
+else
+	echo "There are too many arguments.Please try again later."
+
+fi
