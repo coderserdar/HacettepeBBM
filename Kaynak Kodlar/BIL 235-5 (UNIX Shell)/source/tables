@@ -1,0 +1,360 @@
+#!/bin/bash
+
+choice=""
+col_num=""
+field=""
+temp=""
+
+
+create_table(){ #butun kontrolleri yapildi,hazir...
+	i=1
+	j=1
+	temp_name=""
+	control=0
+	answer=""
+	reference_table=""
+	table_name=""
+	word=""
+	line=""
+	col=0
+	control1=0
+	echo -n "Enter the table's name:"
+	read table_name
+	for temp_name in *
+	do
+		if [ "$temp_name" == ""$table_name".txt" ]
+		then 
+			control=1
+			
+		fi
+	done
+	if [ $control -eq 0 ]
+	then
+		echo -n "Enter the number of the columns:"
+		read col_number
+		while [ $i -le $col_number ]
+		do
+			control2=0
+			echo -n "$i.column:"
+			read field
+				if [ $i -eq $col_number ]
+				then
+					echo "$field ">>"$table_name".txt
+				else
+					echo -n "$field ">>"$table_name".txt
+				fi
+			i=`expr $i + 1`
+		done
+	else
+		echo "There is already a table with given name,please choose another."
+		create_table
+	fi
+}
+delete_table(){ #kontrolleri yapild,hazir...
+	table_name=""
+	control=0
+	temp_name=""
+	temp=""
+	word=0
+	line=0
+	col=0
+	i=1
+	line1=0
+	control1=0
+	echo -n "Enter the table's name that you want to delete: "
+	read table_name
+	for temp_name in *
+	do
+		if [ $temp_name == "$table_name".txt ]
+		then
+			control=1
+		fi
+	done
+	if [ $control -eq 1 ]
+	then
+		for temp_name in *
+		do
+			word=`wc -w $temp_name | cut -f1 -d " "`
+			line=`wc -l $temp_name | cut -f1 -d " "`
+			col=`expr $word / $line`	
+			i=1
+			while [ $i -le $col ]	
+			do
+				temp=`head -1 $temp_name | cut -f$i -d " " | cut -f2 -d "*"`
+				if [ "$temp" == "$table_name" ]
+				then
+					line1=`wc -l "$temp_name" | cut -f1 -d " "`
+					if [ $line1 -ne 1 ]
+					then
+						control1=`expr $control1 + 1`
+					fi
+					
+				fi
+				i=`expr $i + 1`
+			done
+		done
+		if [ $control1 -eq 0 ]
+		then
+			rm "$table_name".txt
+		fi
+		
+	else
+		echo "The table with given name doesn't exist,so you can't delete!"
+	fi
+
+}
+
+insert_record(){ #kontrolleri yapildi,hazir...
+	record=""
+	word_number=0
+	line_number=0
+	i=1
+	j=1
+	control=0
+	temp_name=""
+	temp=""
+	reference_table=""
+	field_name=""
+	x=
+	result_col=0
+	word=0
+	line=0
+	col=0
+	field=""
+	col_number=0
+	ctrl=0
+	echo -n "Enter the table's name where the record will be inserted:"
+	read table_name
+	for temp_name in *
+	do
+		if [ "$temp_name" == ""$table_name".txt" ]
+		then
+			control=1
+		fi
+	done
+	if [ $control -eq 1 ]
+	then
+		word_number=`wc -w "$table_name".txt | cut -f1 -d " "`
+		line_number=`wc -l "$table_name".txt | cut -f1 -d " "`
+		col_number=`expr $word_number / $line_number`
+		while [ $i -le $col_number ]
+		do
+			temp=`head -1 "$table_name".txt | cut -f$i -d " "`
+			field_name=`head -1 "$table_name".txt | cut -f$i -d " " | cut -f1 -d "*"`
+			reference_table=`head -1 "$table_name".txt | cut -f$i -d " " | cut -f2 -d "*"`
+			echo -n ""$temp": "
+			read record
+			if [ $i -eq 1 ]
+			then
+				all="$record"
+			fi
+			if [ "$reference_table" == "$field_name" ]
+			then
+				if [ $i -eq $col_number ]
+				then 
+					all="$all $record"
+					echo "$all ">>"$table_name".txt 
+					#echo "$record ">>"$table_name".txt
+				else
+					if [ $i -ne 1 ]
+					then
+						all="$all $record"
+					fi
+					#echo -n "$record ">>"$table_name".txt
+				fi
+			else
+				for f in *
+				do
+					if [ "$f" == ""$reference_table".txt" ]
+					then 
+						ctrl=1
+					fi	
+				done
+				if [ $ctrl -eq 1 ]
+				then
+					word=`wc -w "$reference_table".txt | cut -f1 -d " "`
+					line=`wc -l "$reference_table".txt | cut -f1 -d " "`
+					col=`expr $word / $line`
+					j=1
+					while [ $j -le $col ]
+					do
+						field=`head -1 "$reference_table".txt | cut -f$j -d " "`
+						if [ "$field_name" == "$field" ]
+						then
+							result_col=$j
+						fi
+						j=`expr $j + 1`
+					done
+					cut -f$result_col -d " " "$reference_table".txt | grep "$record">>temp1.txt
+					x=`head -1 temp1.txt`
+					if [ "$x" == "$record" ]
+					then
+						if [ $i -eq $col_number ]
+						then 
+							all="$all $record"
+							echo "$all ">>"$table_name".txt
+							#echo "$record ">>"$table_name".txt
+						else
+							if [ $i -ne 1 ]
+							then
+								all="$all $record"
+								#echo -n "$record ">>"$table_name".txt	
+							fi
+							echo "saglikli bitirme eki...">>temp1.txt
+							rm temp1.txt
+						fi
+					else
+						echo "There isn't a record as "$record" in "$field_name" column in "$reference_table" table,so insertion couldn't be done"
+						break	
+					fi
+				else
+					echo "Referred table was deleted before,so you have to create it again firstly."
+					break
+				fi
+			fi
+			i=`expr $i + 1`
+		done
+	else
+		echo "There isn't a table named "$table_name", please create a table first.."
+	fi
+	echo "saglikli bitirme eki...">>temp1.txt
+	rm temp1.txt
+
+} #178. satir
+delete_record(){
+	table_name=""
+	control=0
+	temp_name=""
+	control1=0
+	control2=0
+	j=1
+
+	echo -n "Enter the table's name where the deletion will be done: "
+	read table_name
+	for temp_name in *
+	do
+		if [ "$temp_name" == ""$table_name".txt" ]
+		then
+			control=1
+		fi
+	done
+	if [ $control -eq 1 ]
+	then
+		echo -n "Enter the column number: "
+		read col_number
+		echo -n "Enter your deletion keyword: "
+		read keyword 
+		for temp in *
+		do
+			word=`wc -w $temp | cut -f1 -d " "`
+			line=`wc -l $temp | cut -f1 -d " "`
+			col=`expr $word / $line`	
+			i=1
+			while [ $i -le $col ]	
+			do
+				temp1=`head -1 $temp | cut -f$i -d " " | cut -f2 -d "*"`
+				if [ "$temp1" == "$table_name" ]
+				then
+					control1=`expr $control1 + 1`
+					cut -f$col_number -d " " "$table_name".txt | grep "$keyword">>temp1.txt
+					result=`head -1 temp1.txt`
+					if [ "$result" == "$keyword" ]
+					then
+						control2=`expr $control2 + 1`
+						field_name=`head -1 $temp | cut -f$i -d " " | cut -f1 -d "*"`
+						w=`wc -w "$table_name".txt | cut -f1 -d " "`
+						l=`wc -l "$table_name".txt | cut -f1 -d " "`
+						c=`expr $w / $l`
+						while [ $j -le $c ]
+						do
+							field=`head -1 "$table_name".txt | cut -f$j -d " "`
+							if [ "$field_name" ==  "$field" ]
+							then
+								awk "/$keyword/" "$table_name".txt>>olmuyo.txt
+								line1=`wc -l olmuyo.txt | cut -f1 -d " "`
+								m=1
+								while [ $m -le $line1 ]
+								do
+									k=`grep -n ".*" olmuyo.txt | grep "$m:" | cut -f$j -d " " | cut -f2 -d ":"`
+									res=`cut -f$i -d " " "$temp" | grep "$k"`
+									if [ "$res" == "$k" ]
+									then
+										echo "Deletion can't be done becasuse field is referred."
+										break
+									else
+										a=`grep -n ".*" olmuyo.txt | grep "$m:" | cut -f2 -d ":"`
+										n=`grep -n "$a" "$table_name".txt | cut -f1 -d ":"`
+										sed "$n d" "$table_name".txt>>oluyomu.txt
+										rm "$table_name".txt
+										mv oluyomu.txt "$table_name".txt
+									fi	
+									m=`expr $m + 1`
+								done
+							fi
+							j=`expr $j + 1`
+						done
+					else
+						if [ $i -eq $col ]
+						then
+							if [ $control2 -eq 0 ]
+							then
+								echo "There isn't a record as "$keyword" in "$table_name" table's "$col_number",so deletion couldn't be done."
+								break
+							fi
+						fi
+					fi
+				fi
+				i=`expr $i + 1`
+			done
+		done
+		if [ $control1 -eq 0 ]
+		then
+			awk "/$keyword/" "$table_name".txt>>olmuyo.txt
+			line1=`wc -l olmuyo.txt | cut -f1 -d " "`
+			m=1
+			while [ $m -le $line1 ]
+			do
+				a=`grep -n ".*" olmuyo.txt | grep "$m:" | cut -f2 -d ":"`
+				n=`grep -n "$a" "$table_name".txt | cut -f1 -d ":"`
+				sed "$n d" "$table_name".txt>>oluyomu.txt
+				rm "$table_name".txt
+				mv oluyomu.txt "$table_name".txt
+				m=`expr $m + 1`
+			done
+		fi
+	else
+		echo "There isn't a table named ""$table_name"",so you can't do any deletion."
+	fi
+	echo "saglikli silme eki...">>temp1.txt
+	echo "saglikli silme eki...">>olmuyo.txt
+	rm olmuyo.txt
+	rm temp1.txt
+}
+menu(){
+	while :
+	do
+	clear
+		echo "*******************************************"
+		echo "**************     MENU     ***************"
+		echo "*******************************************"
+		echo "To create a table press 1,"
+		echo "To delete a table press 2,"
+		echo "To insert a record to any table press 3,"
+		echo "To delete a record from any table press 4,"
+		echo "To exit the program press 6."
+		echo "*******************************************"
+		echo -n "Please make your choice:"
+		read choice
+		case $choice in
+			1)create_table ; echo  "Press a key..." ; read ;;
+			2)delete_table ; echo  "Press a key..." ; read ;;
+			3)insert_record ; echo  "Press a key..." ; read ;;
+			4)delete_record ; echo  "Press a key..." ; read ;;
+			6)echo "Bye bye...:)" ; exit 0 ;;
+			*)echo "Please make your choice in [1-6]" ; echo "Press a key..." ; read ;;
+		esac
+	done
+}
+
+menu
+ 
