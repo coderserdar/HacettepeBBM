@@ -8,8 +8,9 @@ Bu repo içerisinde
  - **Derslerde kullanılan kitaplar ve yardımcı dokümanlar**
  - **Slaytlar**
  - **Ödevler**,
- - **Sınavlar ve Çözümleri** kategorilerinde pek çok kaynağa ulaşabilirsiniz.
-Özellikle *C*, *C++*, *İşletim Sistemleri* gibi konularda **Türkçe** faydalı dokümanlar mevcut.
+ - **Sınavlar ve Çözümleri**
+ - **Belgeler** kategorilerinde pek çok kaynağa ulaşabilirsiniz.
+Özellikle *Java*, *C*, *C++* gibi programalama dilleri, *Tasarım Örüntüleri (Design Patterns)*, *İşletim Sistemleri*, *Veri Yapıları ve Algoritmalar* gibi konularda **Türkçe** faydalı dokümanlar mevcut.
 
 Sonrasında sadece kendi dönemime ait değil, **başka yıllara ait** dokümanları da *eklemeye çalıştım*. Daha kapsamlı olması açısından
  
@@ -20,6 +21,7 @@ Reponun yapısı aşağıdaki gibidir.
  - [**Ödevler** (*Çeşitli derslerle ilgili olarak verilen ödevlere ait dokümanlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Ödevler/)
  - [**Sınavlar** (*Çeşitli derslerle ilgili olarak yapılan bazı sınavlar ve çözümleri*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Sınavlar/)
  - [**Slaytlar** (*Çeşitli derslerle ilgili olarak verilen slaytlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Slaytlar/)
+ - [**Belgeler** (*Staj Raporu Örneği gibi faydalı olacak belgeler*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Slaytlar/)
  - [**Diğer Yıllar** (*Diğer yıllara ait dokümanlar*)](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/)
    - [**Ders Notları**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Ders%20Notları/)
    - [**Kitaplar**](https://github.com/coderserdar/HacettepeBBM/tree/main/Diğer%20Yıllar/Kitaplar/)
