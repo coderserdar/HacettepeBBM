@@ -1,0 +1,25 @@
+#!/bin/bash
+#applying a command to all sub directories
+directory=`pwd`
+count=0
+ for file in $(ls  "$directory") ; do
+	if [ -d "$file" ]; then
+		cd "$file"
+		traverse $@
+		cd ..
+	elif [ -f "$file" ]; then
+		if [ 0 == $count ] ; then
+			if [ "$1" != "" ] ; then
+		
+				if [ "$2" != "" ] ; then
+					"$1" "$2"
+				else
+					"$1"
+				fi
+			
+			fi
+		fi	
+		count="$(( $count + 1 ))"
+	fi
+done
+exit 0
