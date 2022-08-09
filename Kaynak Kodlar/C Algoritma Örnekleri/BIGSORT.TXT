@@ -1,0 +1,82 @@
+Bigsort: An in-memory sort for large files.
+-------------------------------------------
+
+(C)1988 Turgut Kalfaoglu 
+
+(User Supported software)
+
+
+
+The reason why I wrote BigSort is because I HAD to sort a large file, and
+the DOS's SORT program frustrated me with its 'OUT OF MEMORY' errors. 
+
+Usage:
+
+BIGSORT [options] < inputfile > outputfile
+
+if you omit the '< inputfile' part, BigSort will wait for an answer from
+the keyboard. If that is what you wish, enter the data, separating each
+one by a RETURN character, then enter CTRL-Z to finish the entry..
+
+if you omit '> outputfile' part, BigSort will send its output to the
+screen. 
+
+For some online help, type
+
+
+      BIGSORT HELP
+
+* Options
+
+  The options that are present in this version are:
+  
+  /+nnn  where nnn's are a number, will cause BigSort to start sorting
+         items from that column.
+	    
+  /R     Reverses the sort order. The sorting order will be ZYXW...DCBA if
+         you use this option.
+
+  /I     Ignore case. Without this option, A comes before a, and Z comes
+         before a! Use this option to prevent this.
+
+
+* Why the < and > operations
+
+I could have written this program so that it asks you for the filenames.
+However, as the law of Redirection states, it is more versatile this way.
+Think of this command:
+
+DIR | BIGSORT
+
+It is possible with this setup, whereas it would have required an extra
+step if I made BigSort ask you for filename(s)..
+
+BIGSORT and multiple files:
+
+You may use BIGSORT, with the program called SEARCH, (written by me, also
+in the public domain), to merge and sort several files. Imagine that you
+want to merge and sort all the contents of the *.C files you had, and put
+the result into RESULT.TXT:
+
+   SEARCH "" *.C | BIGSORT > RESULT.TXT
+
+Impressive line, eh?
+
+Note: If you get an 'out of memory' when piping (using the | symbol), try
+dividing the above like this:
+
+SEARCH "" *.C > TMPFILE
+BIGSORT < TMPFILE > RESULT.TXT
+
+
+Source code is available for $10, plus a blank disk.
+
+If you have any questions, or donations, please let me know..
+
+Turgut Kalfaoglu
+1378 Sokak 8/10
+Izmir 35210
+Turkey
+
+I can be reached at TURGUT@TREARN.BITNET as well..
+

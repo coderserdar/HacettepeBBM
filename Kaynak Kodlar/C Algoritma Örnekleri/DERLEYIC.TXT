@@ -1,0 +1,118 @@
+KULLANABILECEGINIZ BAZI DERLEYICILER:
+
+1. Mix-C Compiler Version 2.5.1
+
+Gerekenler: 128K bellek, bir disket surucusu.
+Hizli derleme yapan, ve kucuk yerlere sigabilen bu derleyicinin kendi
+editoru yoktur. Dilediginiz bir ASCII editoru ile programinizi yazdiktan
+sonra,
+
+        CC programismi
+
+diyerek derleyiciyi calistirabilirsiniz. Derleyici calisirken,
+programinizi ekranda gosterecektir. Sayet bir hata varsa, hatanin yeri, ve
+ne oldugunu yazacaktir. Hatasiz bir derlemeden sonra, programismi.MIX diye
+bir kutuk olusacaktir. Simdi yapmaniz gereken, 
+
+        LINKER programismi
+
+demek. Bu da, programismi.COM isimli bir kutuk yaratacaktir, ve bunu
+sadece programismi yazarak calistirabilirsiniz. 
+
+2. Microsoft Quick C Compiler Version 1.0 yada 2.0
+
+Gerekenler: 320K bellek, iki disket surucusu.
+Bu derleyici, icinde editoru de olmasi ve derleme/link etabini son
+derece hizli yapmasi nedeni ile, tavsiye edilir. Iki diskette de
+calisabilecegi gibi, performansi bir hard disk ile artmaktadir.
+
+Kullanimi:
+
+Derleyiciye girmeden once, vermeniz gereken bazi komutlar vardir. Bu
+komutlar, derleyiciye neyi nerede bulabilecegini belirtir. Bunlarin en
+gerekli olanlari:
+
+        SET INCLUDE=<dizin ismi>
+        SET LIB=<dizin ismi>
+
+Ornegin, Butun *.H isimli kutukleri B: diskindeki INC dizininde
+tutuyorsaniz, ve Quick-C nin aradigi *.LIB isimli kutukleri de A:
+diskinde, LIBS dizininde tutuyorsaniz, vereceginiz DOS komutlari sunlardir:
+
+        SET INCLUDE=B:\INC
+        SET LIB=A:\LIBS
+
+Ayrica, PATH ile de QC.EXE ve LINK.EXE nin bulundugu yerler
+belirtilmelidir. Ornegin, QC.EXE A: diskinde, LINK.EXE ise B: de ise,
+vermeniz gereken PATH, soyle olabilir:
+
+        PATH A:\;B:\;
+
+PATH ve SET komutlari hakkinda daha detayli bilgiyi, IBM Disk Operating
+System isimli kitaptan bulabilirsiniz. Sayet yukaridaki komutlari verirken
+'Out of Environment Space' gibi bir hata mesaji gorurseniz, su satiri
+sistemi actiginiz disket/hard disk'te bulunan \CONFIG.SYS isimli kutuge
+eklemeniz gerekmektedir:
+
+        SHELL=COMMAND.COM /E:2500 /P
+	   
+Bu komut, DOS 3.2 ve sonraki DOS larda calismaktadir. Yaptigi is ise,
+COMMAND.COM isimli komut yorumlayicisina 2500 byte'lik yer saglamaktir. Bu
+yer ise, bize rahat rahat yetecektir. CONFIG.SYS i degistirdikten sonra,
+cihazinizi CTRL-ALT-DEL tuslarina basarak yeniden baslatmaniz
+gerekmektedir.
+
+Derleyiciye girmek icin, QC yazmaniz yeterlidir. Kendinizi, editorunun
+icinde bulacaksiniz, ve ekranin uzerinde 'File Edit View Search' vs. gibi
+sozcukler yer alacak. Bunlar, programin menulerinin isimleridir. Herhangi
+bir menuyu acmak icin, ALT tusuna basili tutarak, o menunun isminin ilk
+harfini yazmaniz yeterlidir. Ornegin ALT-F ye basarsaniz, File menusu
+acilacaktir.  Ok isaretleri ile bir maddeyi secebilir, ve RETURN e basarak
+o secenegin islenmesini saglayabilirsiniz. Esc tusu ise, bir menuyu
+kapatmakta kullanilabilir.
+
+Quick C ile program yazmak:
+
+Derhal baslayabilirsiniz. Sayet editor komutlarini gormek isterseniz, F1
+tusuna basin. Asagida, secenekleri goreceksiniz. Bir sonraki sayfayi
+gormek icin, 'N' ye basabilirsiniz, help menusunden cikmak icin, Esc
+tusunu kullanabilirsiniz.
+
+Programiniz bitince, derleyip sonucu gormek isteyeceksiniz. F5 tusu, bunu
+yapmanin en kolay yoludur. Fakat, bazi derleyici secenekleri degistirmek
+isteyebilirsiniz. Bunun icin ise, ALT-R ye basip, 'Run' menusunden
+'Compile...' i secip, dilediginiz degisiklikleri yapabilirsiniz. Bir
+secenekten digerine gecmek icin 'Tab' tusuna, birseyi degistirmek icin
+'Space Bar' a, bitince de 'Return' e basabilirsiniz.
+
+Programi diske kaydetmek icin, File menusunden, 'Save' yada 'Save as' i
+secmeniz gereklidir. Ok isaretlerini kullanarak bunlardan birini secin, ve
+RETURN e dokunun. 
+
+Programlama sirasinda herhangi bir komut yada fonksiyon hakkinda daha
+detayli bilgi almak icin, cursor'u o komutun ustune getirip, SHIFT tusuna
+basarken F1 e basabilirsiniz.
+
+3. Microsoft C Optimizing Compiler Version 5.0 yada 6.0
+
+Gerekenler: 320K bellek, Hard disk.
+Bu derleyici kullanmak icin ise, yine PATH ve SET komutlari ile, neyin
+nerede oldugunu belirtmeniz gerekli. Bu derleyicinin kendi editoru
+olmadigi icin, sevdiginiz bir editoru kullanarak programinizi yazmaniz,
+sonra da:
+
+          CL programismi.C
+
+diyerek derleyici calistirmaniz gereklidir. Derleyici, programismi.OBJ
+diye bir kutuk olusturacaktir. Bundan sonra da,
+
+          LINK programismi;
+
+yazarak programismi.EXE yi olusturabilirsiniz. Programinizi calistirmak
+icin, sadece programin ismini yazmaniz yeterlidir. Bu derleyicinin zengin
+derleme seceneklerini gormek icin,
+
+          CL /HELP
+
+yazmaniz yeterlidir.
+
