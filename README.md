@@ -10,7 +10,7 @@ Bu repo içerisinde
  - **Ödevler**,
  - **Sınavlar ve Çözümleri**
  - **Belgeler** kategorilerinde pek çok kaynağa ulaşabilirsiniz.
-Özellikle *Java*, *C*, *C++* gibi programalama dilleri, *Tasarım Örüntüleri (Design Patterns)*, *İşletim Sistemleri*, *Veri Yapıları ve Algoritmalar* gibi konularda **Türkçe** faydalı dokümanlar mevcut.
+Özellikle *Java*, *C*, *C++* gibi programlama dilleri, *Tasarım Örüntüleri (Design Patterns)*, *İşletim Sistemleri*, *Veri Yapıları ve Algoritmalar* gibi konularda **Türkçe** faydalı dokümanlar mevcut.
 
 Sonrasında sadece kendi dönemime ait değil, **başka yıllara ait** dokümanları da *eklemeye çalıştım*. Daha kapsamlı olması açısından
  
